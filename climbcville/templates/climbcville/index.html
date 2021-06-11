@@ -1,9 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Welcome to ClimbCville!</h1>
+<h2>Please select a question to answer from the list below.</h2>
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
+    <li><a href="{% url 'climbcville:detail' question.id %}">{{ question.question_text }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+
+</body>
+</html>
