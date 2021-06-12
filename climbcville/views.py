@@ -2,17 +2,22 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from .models import Choice, Question
+from .models import Choice, Question, Route
 
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    context = {'latest_question_list': latest_question_list}
+    routes_list = Route.objects.order_by('rs_grade')[:1000] # no more than 1000 routes will display
+    context = {'latest_question_list': latest_question_list, 'routes_list': routes_list}
     return render(request, 'climbcville/index.html', context)
 
-def detail(request, question_id):
+def poll_details(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'climbcville/detail.html', {'question': question})
+    return render(request, 'climbcville/poll_details.html', {'question': question})
+
+def route_details(request, route_id):
+    route = get_object_or_404(Route, pk=route_id)
+    return render(request, 'climbcville/route_details.html', {'route': route})
 
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -24,7 +29,7 @@ def vote(request, question_id):
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
-        return render(request, 'climbcville/detail.html', {
+        return render(request, 'climbcville/poll_details.html', {
             'question': question,
             'error_message': "You didn't select a choice.",
         })
