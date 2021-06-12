@@ -49,13 +49,14 @@ class Admin(Person):
 
 class Location(models.Model):
     location_id = models.IntegerField(primary_key=True)
-    latitude = models.IntegerField()
-    longitude = models.IntegerField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
     approach_info = models.TextField()
+    location_name = models.CharField(max_length=100)
 
 class Route(models.Model):
     route_id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=100)
+    route_name = models.CharField(max_length=100)
     r_type = models.CharField(max_length=20) # ideally we would make this multiple choice - either by assigning integers or booleans
     rs_grade = models.CharField(max_length=10)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
