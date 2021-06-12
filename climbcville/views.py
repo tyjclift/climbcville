@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from .models import Choice, Question, Route
+from .models import Choice, Question, Route, Route_Setter, Location
 
 
 def index(request):
@@ -17,7 +17,9 @@ def poll_details(request, question_id):
 
 def route_details(request, route_id):
     route = get_object_or_404(Route, pk=route_id)
-    return render(request, 'climbcville/route_details.html', {'route': route})
+    location = get_object_or_404(Location, pk=route.location_id.location_id)
+    context = {'route': route, 'location': location}
+    return render(request, 'climbcville/route_details.html', context)
 
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
