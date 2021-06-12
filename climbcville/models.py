@@ -1,8 +1,12 @@
+# The models file is going to actually collect the data that you have 
+# retrieved from the user interaction with the HTML. 
+
 import datetime
 
 from django.db import models
 from django.utils import timezone
 
+# Get the INITIAL question text from your database 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
@@ -11,6 +15,7 @@ class Question(models.Model):
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
+# Get the SECOND question text from the model (which depends on the users selection of the first question)
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
@@ -54,6 +59,7 @@ class Location(models.Model):
     approach_info = models.TextField()
     location_name = models.CharField(max_length=100)
 
+
 class Route(models.Model):
     route_id = models.IntegerField(primary_key=True)
     route_name = models.CharField(max_length=100)
@@ -62,6 +68,8 @@ class Route(models.Model):
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
     person_id = models.ManyToManyField(Route_Setter)
 
+# Get the route_log_entry data from the database 
+# When you call the route_log_entry class, you can access any of its fields 
 class Route_Log_Entry(models.Model):
     entry_id = models.IntegerField(primary_key=True)
     comment = models.TextField()
