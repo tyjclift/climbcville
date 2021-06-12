@@ -25,7 +25,7 @@ class Person(models.Model):
     email = models.EmailField(max_length=50)
     phone = models.IntegerField()
     def __str__(self):
-        return self.person_id
+        return (str)(self.person_id)
 
     # see abstract base classes, meta inheritance
     class Meta:
@@ -67,5 +67,5 @@ class Route_Log_Entry(models.Model):
     beta = models.TextField()
     c_grade = models.CharField(max_length=10)
     c_rating = models.CharField(max_length=10)
-    rs_id = models.ForeignKey(Climber, on_delete=models.CASCADE, null=True)
+    c_id = models.ForeignKey(Climber, on_delete=models.CASCADE, null=True)
     route_id = models.ForeignKey(Route, on_delete=models.CASCADE, null=True)
