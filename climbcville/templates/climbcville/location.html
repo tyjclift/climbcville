@@ -1,5 +1,9 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'climbcville/style.css' %}">
+
 <!DOCTYPE html>
 <html>
+<div>
 
 <h1>{{ location_objs.location_name }}</h1>
 <h3> Directions </h3>
@@ -19,5 +23,5 @@
     <input type="submit" value="checkout route">
 </form>
 {% endblock %}
-
+</div>
 </html>

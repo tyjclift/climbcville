@@ -1,0 +1,47 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+
+/* h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+} */
+
+li a {
+    color: green;
+    }   
+
+
+input[type=submit] {
+    /* width: 100%; */
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: large;
+  }
+  
+input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+select {
+    background-color: #838383;
+    color: white;
+    padding: 8px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: large;
+
+}
