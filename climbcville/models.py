@@ -57,7 +57,7 @@ class Location(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     approach_info = models.TextField()
-    location_name = models.CharField(max_length=100)
+    location_name = models.CharField(max_length=100, null=True)
 
 
 class Route(models.Model):

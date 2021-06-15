@@ -7,22 +7,34 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.contrib import messages
 
-from .models import Choice, Location, Question, Route, User_Input
+from .models import Choice, Location, Question, Route, User_Input, Route_Setter
 from .forms import Route_Log_Entry_Form
 
 # Render out the location dropdown and poll dropdowns 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     locations_list = Location.objects.all
+    routes_list = Route.objects.all
     context = {'latest_question_list': latest_question_list, 
-               'showlocations': locations_list}
+               'showlocations': locations_list,
+               'routes_list': routes_list}
     return render(request, 'climbcville/index.html', context)
 
+def poll_details(request, question_id):
+    # The HTML template we made to render the intitial question will have a field of 
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'climbcville/poll_details.html', {'question': question})
 
 def detail(request, question_id):
     # The HTML template we made to render the intitial question will have a field of 
     question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'climbcville/detail.html', {'question': question})
+    return render(request, 'climbcville/poll_details.html', {'question': question})
+
+def route_details(request, route_id):
+    route = get_object_or_404(Route, pk=route_id)
+    location = get_object_or_404(Location, pk=route.location_id.location_id)
+    context = {'route': route, 'location': location}
+    return render(request, 'climbcville/route_details.html', context)
 
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
