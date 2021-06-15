@@ -1,0 +1,13 @@
+<h3>Route Log Entry Form<h3>
+<h4>( {{route_choice.route_name}} @ {{location_choice.location_name}} )</h4>
+<h3> Grade: {{route_choice.rs_grade}} </h3>
+<h3> Type: {{route_choice.r_type}} </h3>
+<br>
+<form method="post">
+    {%csrf_token%}
+    <table border="1">
+        {{form}}
+    </table>
+    <input type="submit">
+</form>
+

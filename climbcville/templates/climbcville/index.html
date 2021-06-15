@@ -14,7 +14,7 @@
     <p>No polls are available.</p>
     {% endif %}
 
-    <h2>Routes:</h2>
+    <h2>Explore Routes:</h2>
     {% if routes_list %}
     <ul>
         {% for route in routes_list %}
@@ -22,6 +22,20 @@
         {% endfor %}
     </ul>
     {% endif %}
+
+
+{% block content %}
+<h2><b> Explore Locations: </b></h2> 
+<form action="{% url 'climbcville:location' %}" method="post">
+    {% csrf_token %}
+    <select name="location_choice">
+        {% for location in showlocations %}
+            <option value="{{location.location_id}}">{{ location.location_name }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="let's go!">
+</form>
+{% endblock %}
 
 </body>
 
