@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<h1>{{ location_objs.location_name }}</h1>
+<h3> Directions </h3>
+<p>Approach: {{ location_objs.approach_info }}</p>
+<p>Latitude: {{ location_objs.latitude }}</p>
+<p>Longitude: {{ location_objs.longitude }}</p>
+
+{% block content %}
+<h3><b> Explore Routes at {{ location_objs.location_name }}: </b></h3> 
+<form action="{% url 'climbcville:route_entry_form' location_objs.location_id %}" method="post">
+    {% csrf_token %}
+    <select name="route_choice">
+        {% for route in route_objs %}
+            <option value="{{route.route_id}}">{{ route.route_name }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="checkout route">
+</form>
+{% endblock %}
+
+</html>

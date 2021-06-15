@@ -78,3 +78,9 @@ class Route_Log_Entry(models.Model):
     c_rating = models.CharField(max_length=10)
     c_id = models.ForeignKey(Climber, on_delete=models.CASCADE, null=True)
     route_id = models.ForeignKey(Route, on_delete=models.CASCADE, null=True)
+
+# To store the most recent user input 
+class User_Input(models.Model):
+    location_id = models.IntegerField()
+    route_id = models.IntegerField()
+    user_code = models.IntegerField(primary_key=True)

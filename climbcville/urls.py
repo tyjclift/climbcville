@@ -9,12 +9,18 @@ app_name = 'climbcville'
 urlpatterns = [
     # ex: /climbcville/
     path('', views.index, name='index'),
-    # ex: /climbcville/5/
-    path('<int:question_id>/', views.detail, name='detail'),
-    # ex: /climbcville/5/results/
-    path('<int:question_id>/results/', views.results, name='results'),
-    # ex: /climbcville/5/vote/
-    path('<int:question_id>/vote/', views.vote, name='vote'),
+
+    # ex: /climbcville/fav_poll_q5/
+    path('fav_poll_q'+'<int:question_id>/', views.detail, name='detail'),
+    # ex: /climbcville/fav_poll_q5/results
+    path('fav_poll_q'+'<int:question_id>/results/', views.results, name='results'),
+    # ex: /climbcville/fav_poll_q5/empty_result
+    path('fav_poll_q'+'<int:question_id>/empty_result/', views.vote, name='vote'),
+
+    path('location/', views.location, name='location'),
+
     # ex: /climbcville/log_entry_form
-    path('log_entry/', views.route_entry_form, name='log_entry')
+    path('location<int:location_id>/'+'route_entry_form/', views.route_entry_form, name='route_entry_form'),
+
+    
 ]

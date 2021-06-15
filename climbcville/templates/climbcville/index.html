@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<body>
+
+
 <h1>Welcome to ClimbCville!</h1>
 <h2>Please select a question to answer from the list below.</h2>
 {% if latest_question_list %}
@@ -13,5 +14,19 @@
     <p>No polls are available.</p>
 {% endif %}
 
-</body>
+
+{% block content %}
+<h2><b> Explore Locations: </b></h2> 
+<form action="{% url 'climbcville:location' %}" method="post">
+    {% csrf_token %}
+    <select name="location_choice">
+        {% for location in showlocations %}
+            <option value="{{location.location_id}}">{{ location.location_name }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="let's go!">
+</form>
+{% endblock %}
+
 </html>
+
