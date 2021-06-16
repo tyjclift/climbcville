@@ -36,15 +36,17 @@
     {% endfor %}
 
 </table>
-
+<br>
 <h2>New Log Entry</h2>
 <form method="post">
     {%csrf_token%}
     <table border="1">
         {{form}}
     </table>
+    <br>
     <input type="submit">
 </form>
+<br>
 </div>
 
 
