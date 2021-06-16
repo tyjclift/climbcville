@@ -18,10 +18,6 @@ def index(request):
     context = {'latest_question_list': latest_question_list, 
                'showlocations': locations_list,
                'routes_list': routes_list}
-
-    if request.method == 'POST':
-        Route_Log_Entry.objects.get(pk=request.POST['delete-id']).delete()
-
     return render(request, 'climbcville/index.html', context)
 
 def poll_details(request, question_id):
@@ -64,19 +60,20 @@ def vote(request, question_id):
 
 # Render out the route entry form 
 def route_entry_form(request, location_id):
-
     if request.POST.get('route_choice') != None:
         print('input:',request.POST.get('route_choice'))
         route_objs = get_object_or_404(Route, pk=int(request.POST.get('route_choice')))
         input = User_Input(user_code=1, location_id=location_id, route_id=route_objs.route_id)
         input.save()
+        
     form = Route_Log_Entry_Form()
     context = {'form':form}
     context['location_choice'] = get_object_or_404(Location, pk=int(location_id))
     data_input = get_object_or_404(User_Input, pk=1)
     context['route_choice'] = get_object_or_404(Route,pk=int(data_input.route_id))
     context['all_route_entries'] = Route_Log_Entry.objects.filter(route_id_id=data_input.route_id)
-
+    
+        
     # If the request method is post
     if request.method == 'POST':
         # Get the information from the user input 
@@ -88,6 +85,10 @@ def route_entry_form(request, location_id):
             form.route_id = get_object_or_404(Route, pk=int(data_input.route_id))
             # Save to our data
             form.save()
+
+    if request.POST.get('delete-id') != None:
+        Route_Log_Entry.objects.get(pk=request.POST['delete-id']).delete()
+
     # Return the context information request to a particular html site 
     return render(request, "climbcville/route_entry_form.html", context)
 
