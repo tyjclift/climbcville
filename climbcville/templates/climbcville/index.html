@@ -18,18 +18,8 @@
     <p>No polls are available.</p>
     {% endif %}
 
-    <h2>Explore Routes:</h2>
-    {% if routes_list %}
-    <ul>
-        {% for route in routes_list %}
-        <li><a href="{% url 'climbcville:route_details' route.route_id %}">{{ route.route_name }}</a></li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
-
 {% block content %}
-<h2><b> Explore Locations: </b></h2> 
+<h2><b> Add Entries: </b></h2> 
 <form action="{% url 'climbcville:location' %}" method="post">
     {% csrf_token %}
     <select name="location_choice">

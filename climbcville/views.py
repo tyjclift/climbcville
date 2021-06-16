@@ -3,11 +3,11 @@
 # that you will need to access in the HTML template. 
 
 from django.http import HttpResponse, HttpResponseRedirect, response
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.contrib import messages
 
-from .models import Choice, Location, Question, Route, User_Input, Route_Setter
+from .models import Choice, Location, Question, Route, Route_Log_Entry, User_Input, Route_Setter
 from .forms import Route_Log_Entry_Form
 
 # Render out the location dropdown and poll dropdowns 
@@ -18,6 +18,10 @@ def index(request):
     context = {'latest_question_list': latest_question_list, 
                'showlocations': locations_list,
                'routes_list': routes_list}
+
+    if request.method == 'POST':
+        Route_Log_Entry.objects.get(pk=request.POST['delete-id']).delete()
+
     return render(request, 'climbcville/index.html', context)
 
 def poll_details(request, question_id):
@@ -30,16 +34,9 @@ def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'climbcville/poll_details.html', {'question': question})
 
-def route_details(request, route_id):
-    route = get_object_or_404(Route, pk=route_id)
-    location = get_object_or_404(Location, pk=route.location_id.location_id)
-    context = {'route': route, 'location': location}
-    return render(request, 'climbcville/route_details.html', context)
-
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'climbcville/results.html', {'question': question})
-
 
 def vote(request, question_id):
     # Get the question object datasource of a particular question id 
@@ -78,6 +75,7 @@ def route_entry_form(request, location_id):
     context['location_choice'] = get_object_or_404(Location, pk=int(location_id))
     data_input = get_object_or_404(User_Input, pk=1)
     context['route_choice'] = get_object_or_404(Route,pk=int(data_input.route_id))
+    context['all_route_entries'] = Route_Log_Entry.objects.filter(route_id_id=data_input.route_id)
 
     # If the request method is post
     if request.method == 'POST':

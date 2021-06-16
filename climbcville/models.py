@@ -74,8 +74,8 @@ class Route_Log_Entry(models.Model):
     entry_id = models.IntegerField(primary_key=True)
     comment = models.TextField()
     beta = models.TextField()
-    c_grade = models.CharField(max_length=10)
-    c_rating = models.CharField(max_length=10)
+    c_grade = models.CharField('Grade', max_length=10)
+    c_rating = models.CharField('Rating', max_length=10)
     c_id = models.ForeignKey(Climber, on_delete=models.CASCADE, null=True)
     route_id = models.ForeignKey(Route, on_delete=models.CASCADE, null=True)
 

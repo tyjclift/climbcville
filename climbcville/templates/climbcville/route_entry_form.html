@@ -7,7 +7,37 @@
 <h4> Grade: {{route_choice.rs_grade}} </h4>
 <h4> Type: {{route_choice.r_type}} </h4>
 <br>
-<h3> Add to the Logbook: </h3>
+
+<h2>Route Log</h2>
+
+<table class="table table-sm" border="1">
+    <tr>
+        <th>Comment</th>
+        <th>Beta</th>
+        <th>Grade</th>
+        <th>Rating</th>
+        <th>Remove</th>
+    </tr>
+
+    {% for entry in all_route_entries %}
+        <tr>
+            <td>{{entry.comment}}</td>
+            <td>{{entry.beta}}</td>
+            <td>{{entry.c_grade}}</td>
+            <td>{{entry.c_rating}}</td>
+            <td>
+                <form method="POST">
+                    {%csrf_token%}
+                    <input type="hidden" value="{{entry.entry_id}}" name="delete-id">
+                    <input type="Submit" value=Delete>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+
+</table>
+
+<h2>New Log Entry</h2>
 <form method="post">
     {%csrf_token%}
     <table border="1">
@@ -16,4 +46,8 @@
     <input type="submit">
 </form>
 </div>
+
+
+<a href="{% url 'climbcville:index' %}">Home Page</a>
+
 
