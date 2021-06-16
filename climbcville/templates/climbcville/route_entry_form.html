@@ -1,10 +1,14 @@
-<h3>Route Log Entry Form<h3>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'climbcville/style.css' %}">
+
+<div>
+<h2>Route Details</h2>
 <h4>( {{route_choice.route_name}} @ {{location_choice.location_name}} )</h4>
-<h3> Grade: {{route_choice.rs_grade}} </h3>
-<h3> Type: {{route_choice.r_type}} </h3>
+<h4> Grade: {{route_choice.rs_grade}} </h4>
+<h4> Type: {{route_choice.r_type}} </h4>
 <br>
 
-<h2>Route Log:</h2>
+<h2>Route Log</h2>
 
 <table class="table table-sm" border="1">
     <tr>
@@ -33,7 +37,7 @@
 
 </table>
 
-<h2>New Log Entry:</h2>
+<h2>New Log Entry</h2>
 <form method="post">
     {%csrf_token%}
     <table border="1">
@@ -41,6 +45,7 @@
     </table>
     <input type="submit">
 </form>
+</div>
 
 
 <a href="{% url 'climbcville:index' %}">Home Page</a>
